@@ -160,14 +160,9 @@ def _create_stages(repo, targets, fname, pbar=None, external=False):
         disable=len(targets) < LARGE_DIR_SIZE,
         unit="file",
     ):
-        path, wdir, out = resolve_paths(repo, out)
+        wdir, out = resolve_paths(repo, out)
         stage = create_stage(
-            Stage,
-            repo,
-            fname or path,
-            wdir=wdir,
-            outs=[out],
-            external=external,
+            Stage, repo, fname, wdir=wdir, outs=[out], external=external,
         )
         if stage:
             Dvcfile(repo, stage.path).remove()
